@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
@@ -24,34 +24,30 @@ const titleMessages = {
 const ContactFormHooks = ({ onSubmit }) => {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
-  // const [contact, setContact] = useState('');
-  // const contact = { contactId, contactName, contactNumber };
 
   const numberId = nanoid();
   const nameId = nanoid();
 
   const handleNameInput = e => {
     setContactName(e.currentTarget.value);
-    console.log(contactName);
   };
   const handleNumberInput = e => {
     setContactNumber(e.currentTarget.value);
-    console.log(contactNumber);
   };
 
   const handleSubmit = e => {
-    console.log(contactName);
-    console.log(contactNumber);
-    // const contact = {
-    //   id: nanoid(),
-    //   name: contactName,
-    //   number: contactNumber,
-    // };
+    e.preventDefault();
 
-    // // onSubmit(contact);
-    // console.log(contact);
-    // setContactName('');
-    // setContactNumber('');
+    const contact = {
+      id: nanoid(),
+      name: contactName,
+      number: contactNumber,
+    };
+
+    onSubmit(contact);
+    console.log(contact);
+    setContactName('');
+    setContactNumber('');
   };
 
   return (
@@ -61,11 +57,11 @@ const ContactFormHooks = ({ onSubmit }) => {
         <Input
           type="text"
           name="name"
-          // pattern={patterns.name}
+          pattern={patterns.name}
           title={titleMessages.name}
           required
           value={contactName}
-          // id={nameId}
+          id={nameId}
           onChange={handleNameInput}
         />
         <br />
@@ -75,11 +71,11 @@ const ContactFormHooks = ({ onSubmit }) => {
         <Input
           type="tel"
           name="number"
-          // pattern={patterns.phone}
+          pattern={patterns.phone}
           title={titleMessages.phone}
           required
           value={contactNumber}
-          // id={numberId}
+          id={numberId}
           onChange={handleNumberInput}
         />
       </Label>

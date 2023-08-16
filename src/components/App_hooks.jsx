@@ -23,9 +23,6 @@ const App = () => {
   );
 
   // const [filter, setFilter] = useState('');
-  // const [contactId, setContactId] = useState('');
-  // const [contactName, setContactName] = useState('');
-  // const [contactNumber, setContactNumber] = useState();
 
   const formSubmitHandler = () => {
     console.log('render');
