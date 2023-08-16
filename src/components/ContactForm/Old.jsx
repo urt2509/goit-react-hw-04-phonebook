@@ -10,7 +10,7 @@ import {
   Title,
 } from './ContactForm.styled';
 
-class ContactForm extends Component {
+class ContactFormOld extends Component {
   state = {
     id: '',
     name: '',
@@ -41,7 +41,7 @@ class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <ContactFormContainer onSubmit={this.handleSubmit}>
+      <ContactFormContainer autoComplete="on" onSubmit={this.handleSubmit}>
         <Label htmlFor={this.nameId}>
           <Title>Name</Title>
           <Input
@@ -75,11 +75,3 @@ class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.number,
-};
-
-export { ContactForm };

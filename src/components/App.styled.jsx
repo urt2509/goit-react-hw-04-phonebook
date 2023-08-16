@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+const AppContainer = styled.div`
+  display: grid;
+  max-width: 750px;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  padding: 24px;
+
+  background-color: #f0f6f5;
+`;
+
 const FieldsSet = styled.fieldset`
 border: solid 1px color: #555;
 border-radius: 5px;
@@ -21,4 +31,4 @@ const SecondTitle = styled.h2`
   color: #555;
 `;
 
-export { Title, SecondTitle, FieldsSet };
+export { AppContainer, Title, SecondTitle, FieldsSet };

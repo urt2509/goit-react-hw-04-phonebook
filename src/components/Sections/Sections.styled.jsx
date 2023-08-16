@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const SectionContainer = styled.div`
-  margin-top: 25px;
+  margin-top: 10px;
   margin-bottom: 25px;
   padding: 15px;
   width: 700px;
