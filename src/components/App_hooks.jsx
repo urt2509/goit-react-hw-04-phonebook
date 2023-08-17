@@ -22,10 +22,16 @@ const App = () => {
     initialContacts
   );
 
+  const addContact = newContact => {
+    console.log(newContact);
+    setContacts([...contacts, newContact]);
+    console.log(contacts);
+  };
+
   // const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = () => {
-    console.log('render');
+  const deleteContact = contactId => {
+    setContacts(contacts.filter(contact => contact.id !== contactId));
   };
 
   // const findNameHandler = findName => {
@@ -47,7 +53,7 @@ const App = () => {
           <FieldsSet>
             <Title>Phonebook</Title>
             <FieldsSet>
-              <ContactFormHooks onSubmit={formSubmitHandler} />
+              <ContactFormHooks onAdd={addContact} />
             </FieldsSet>
           </FieldsSet>
         </Section>
@@ -61,7 +67,7 @@ const App = () => {
             <ContactList
               contacts={contacts}
               // contacts={filteredContacts}
-              // onDelete={this.handleDelete}
+              onDelete={deleteContact}
               id={contacts.id}
             />
           </FieldsSet>
@@ -70,59 +76,6 @@ const App = () => {
     </Layout>
   );
 };
-
-// handleFilter = e => {
-//   this.setState({ filter: e.currentTarget.value });
-// };
-
-// getFilteredContacts = e => {
-//   const { contacts, filter } = this.state;
-//   const normalizedFilter = filter.toLowerCase();
-
-//   return contacts.filter(contact =>
-//     contact.name.toLowerCase().includes(normalizedFilter)
-//   );
-// };
-
-// handleDelete = contactId => {
-//   this.setState(prevState => ({
-//     contacts: prevState.contacts.filter(el => el.id !== contactId),
-//   }));
-// };
-
-// render() {
-//   const { filter, contacts } = this.state;
-
-//   const filteredContacts = this.getFilteredContacts();
-
-// return (
-//   <>
-//     <Section>
-//       <FieldsSet>
-//         <Title>Phonebook</Title>
-//         <FieldsSet>
-//           <ContactForm onSubmit={this.formSubmitHandler} />
-//         </FieldsSet>
-//       </FieldsSet>
-//     </Section>
-
-//     <Section>
-//       <FieldsSet>
-//         <SecondTitle>Contact List</SecondTitle>
-
-//         <Filter value={filter} onChange={this.handleFilter} />
-
-//         <ContactList
-//           contacts={filteredContacts}
-//           onDelete={this.handleDelete}
-//           id={contacts.id}
-//         />
-//       </FieldsSet>
-//     </Section>
-//   </>
-// );
-//   }
-// }
 
 App.propTypes = {
   id: PropTypes.string,

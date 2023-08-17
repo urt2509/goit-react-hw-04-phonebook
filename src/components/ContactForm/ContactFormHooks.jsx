@@ -10,18 +10,13 @@ import {
   Title,
 } from './ContactForm.styled';
 
-const patterns = {
-  name: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
-  phone: '+?d{1,4}?[ .-s]?(?d{1,3}?)?[ .-s]?d{1,4}[ .-s]?d{1,4}[ .-s]?d{1,9}',
-};
-
 const titleMessages = {
   name: "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
   phone:
     'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
 };
 
-const ContactFormHooks = ({ onSubmit }) => {
+const ContactFormHooks = ({ onAdd }) => {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
 
@@ -35,6 +30,11 @@ const ContactFormHooks = ({ onSubmit }) => {
     setContactNumber(e.currentTarget.value);
   };
 
+  const reset = () => {
+    setContactName('');
+    setContactNumber('');
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -44,10 +44,10 @@ const ContactFormHooks = ({ onSubmit }) => {
       number: contactNumber,
     };
 
-    onSubmit(contact);
+    onAdd(contact);
     console.log(contact);
-    setContactName('');
-    setContactNumber('');
+
+    reset();
   };
 
   return (
@@ -57,7 +57,7 @@ const ContactFormHooks = ({ onSubmit }) => {
         <Input
           type="text"
           name="name"
-          pattern={patterns.name}
+          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title={titleMessages.name}
           required
           value={contactName}
@@ -71,7 +71,7 @@ const ContactFormHooks = ({ onSubmit }) => {
         <Input
           type="tel"
           name="number"
-          pattern={patterns.phone}
+          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
           title={titleMessages.phone}
           required
           value={contactNumber}
