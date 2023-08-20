@@ -9,8 +9,7 @@ const ContactListContainer = styled.ul`
 
 const List = styled.li`
   display: flex;
-  gap: 15px;
-
+  gap: 5px;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 15px;
@@ -18,24 +17,27 @@ const List = styled.li`
 
 const Item = styled.p`
   font-size: 24px;
-  text-shadow: 0.5px 0.5px 1px #000000;
-  color: rgb(96, 149, 255);
-  ${'' /* color: #3d3b3b; */}
+  font-weight: bold;
+  color: #0000ff;
 `;
 
 const Button = styled.button`
-  width: 150px;
+  width: 180px;
   border: solid 3px rgb(96, 149, 255);
   border-radius: 5px;
   box-shadow: rgb(216, 227, 237) 2px 2px 5px 5px;
-  height: 100%;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  height: 45px;
+  margin: 5px;
+  text-align: center;
+  background-color: #ffffff;
+  color: #0000ff;
+  font-weight: bold;
 
   &:hover,
   :focus {
-    background-color: rgb(96, 149, 255);
-    color: rgb(255, 255, 255);
+    background-color: #0000ff;
+    color: #ffffff;
+    font-size: 1.15em;
   }
 `;
 

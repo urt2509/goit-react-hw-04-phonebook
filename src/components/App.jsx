@@ -1,65 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Section } from './Sections';
-import { nanoid } from 'nanoid';
+import { useLocalStorage } from 'hooks';
+import { localStorageKeys } from 'constants';
+import initialContacts from '../contacts.json';
 
+import { GlobalStyle } from './GlobalStyle';
+import { Layout } from './Layout';
+import { AppContainer } from './App.styled';
+import { Section } from './Sections';
 import { ContactList } from './Contacts';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 
-import initialContacts from '../contacts.json';
+import { Title, SecondTitle, Container } from './App.styled';
 
-import { Title, SecondTitle, FieldsSet } from './App.styled';
+const App = () => {
+  const [contacts, setContacts] = useLocalStorage(
+    localStorageKeys.CONTACTS_KEY,
+    initialContacts
+  );
+  const [filter, setFilter] = useState('');
 
-class App extends Component {
-  state = {
-    contacts: initialContacts,
-    filter: '',
-  };
-
-  contactId = nanoid();
-
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parcedContacts = JSON.parse(contacts);
-
-    if (parcedContacts) {
-      this.setState({ contacts: parcedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  formSubmitHandler = props => {
-    const contact = {
-      id: nanoid(),
-      name: props.name,
-      number: props.number,
-    };
-
-    const findName = this.state.contacts.find(
-      elem => elem.name.toLowerCase() === props.name.toLowerCase()
+  const addContact = newContact => {
+    const findName = contacts.find(
+      elem => elem.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
     if (findName) {
       return alert(`${findName.name} is already in contacts.`);
     }
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-    }));
+
+    setContacts([...contacts, newContact]);
   };
 
-  handleFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+  const deleteContact = contactId => {
+    setContacts(contacts.filter(contact => contact.id !== contactId));
   };
 
-  getFilteredContacts = e => {
-    const { contacts, filter } = this.state;
+  const getFilteredContacts = e => {
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
@@ -67,45 +46,42 @@ class App extends Component {
     );
   };
 
-  handleDelete = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(el => el.id !== contactId),
-    }));
+  const handleFilter = e => {
+    setFilter(e.currentTarget.value);
+    console.log(filter);
   };
 
-  render() {
-    const { filter, contacts } = this.state;
+  const filteredContacts = getFilteredContacts();
 
-    const filteredContacts = this.getFilteredContacts();
-
-    return (
-      <>
+  return (
+    <Layout>
+      <AppContainer>
+        <GlobalStyle />
         <Section>
-          <FieldsSet>
-            <Title>Phonebook</Title>
-            <FieldsSet>
-              <ContactForm onSubmit={this.formSubmitHandler} />
-            </FieldsSet>
-          </FieldsSet>
+          <Title>Phonebook</Title>
+          <Container>
+            <Container>
+              <ContactForm onAdd={addContact} />
+            </Container>
+          </Container>
         </Section>
 
         <Section>
-          <FieldsSet>
-            <SecondTitle>Contact List</SecondTitle>
-
-            <Filter value={filter} onChange={this.handleFilter} />
+          <SecondTitle>Contacts</SecondTitle>
+          <Container>
+            <Filter value={filter} onChange={handleFilter} />
 
             <ContactList
               contacts={filteredContacts}
-              onDelete={this.handleDelete}
+              onDelete={deleteContact}
               id={contacts.id}
             />
-          </FieldsSet>
+          </Container>
         </Section>
-      </>
-    );
-  }
-}
+      </AppContainer>
+    </Layout>
+  );
+};
 
 App.propTypes = {
   id: PropTypes.string,

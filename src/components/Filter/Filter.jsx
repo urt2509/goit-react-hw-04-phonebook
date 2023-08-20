@@ -5,7 +5,12 @@ import { InputFilter, Title, FilterContainer } from './Filter.styled';
 const Filter = ({ value, onChange }) => (
   <FilterContainer>
     <Title>Find contacts by name</Title>
-    <InputFilter type="text" value={value} onChange={onChange} />
+    <InputFilter
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder="Enter name"
+    />
   </FilterContainer>
 );
 

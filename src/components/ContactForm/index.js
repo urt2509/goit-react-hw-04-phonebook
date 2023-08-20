@@ -1,1 +1,1 @@
-export { ContactFormHooks } from './ContactFormHooks.jsx';
+export { ContactForm } from './ContactForm.jsx';

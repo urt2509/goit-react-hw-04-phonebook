@@ -16,7 +16,7 @@ const titleMessages = {
     'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
 };
 
-const ContactFormHooks = ({ onAdd }) => {
+const ContactForm = ({ onAdd }) => {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
 
@@ -45,7 +45,6 @@ const ContactFormHooks = ({ onAdd }) => {
     };
 
     onAdd(contact);
-    console.log(contact);
 
     reset();
   };
@@ -85,10 +84,10 @@ const ContactFormHooks = ({ onAdd }) => {
   );
 };
 
-ContactFormHooks.propTypes = {
+ContactForm.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   number: PropTypes.number,
 };
 
-export { ContactFormHooks };
+export { ContactForm };

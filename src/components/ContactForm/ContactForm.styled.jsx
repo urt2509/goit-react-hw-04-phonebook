@@ -1,53 +1,55 @@
 import styled from 'styled-components';
 
 const ContactFormContainer = styled.form`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-left: 40px;
-
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  flex-wrap: nowrap;
+  gap: 5px;
 `;
 
 const Label = styled.label`
-  padding: 0;
-  color: #555;
+  padding: 0px;
+  color: #0000ff;
 `;
 
 const Title = styled.h3`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   text-align: start;
+  color: #0000ff;
 `;
 
 const Input = styled.input`
-margin: 0px;
+  margin: 0px;
   width: 250px;
-  height: 100%; 
-  max-height: 105px;
+  height: 75px;
   border: solid 3px rgb(96, 149, 255);
   border-radius: 5px;
   box-shadow: rgb(216, 227, 237) 2px 2px 5px 5px;
   height: 100%;
   background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-
-  
-  }
+  color: #0000ff;
 `;
 
 const Button = styled.button`
-  width: 150px;
+  width: 180px;
   border: solid 3px rgb(96, 149, 255);
   border-radius: 5px;
   box-shadow: rgb(216, 227, 237) 2px 2px 5px 5px;
-  height: 100%;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  height: 45px;
+  margin: 5px;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #0000ff;
+  color: #ffffff;
+  font-weight: bold;
 
   &:hover,
   :focus {
-    background-color: rgb(96, 149, 255);
-    color: rgb(255, 255, 255);
+    background-color: #ffffff;
+    color: #0000ff;
+    font-size: 1.15em;
   }
 `;
 

@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
 const FilterContainer = styled.label`
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-bottom: 25px;
   margin-left: 40px;
   padding: 10px;
+
+  color: #0000ff;
 `;
 
 const InputFilter = styled.input`
@@ -15,6 +21,10 @@ const InputFilter = styled.input`
   height: 100%;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
+  font-size: 18px;
+  ${'' /* font-weight: bold; */}
+  background-color: #ffffff;
+  color: #0000ff;
 `;
 
 const Title = styled.h3`
@@ -22,7 +32,7 @@ const Title = styled.h3`
   margin-bottom: 10px;
   margin-left: 40px;
   text-align: start;
-  color: #555;
+  color: #0000ff;
 `;
 
 export { InputFilter, Title, FilterContainer };
