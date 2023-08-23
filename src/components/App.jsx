@@ -14,6 +14,7 @@ import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 
 import { Title, SecondTitle, Container } from './App.styled';
+//TODO: change vanila form to Formik and Yup
 
 const App = () => {
   const [contacts, setContacts] = useLocalStorage(
@@ -31,7 +32,7 @@ const App = () => {
       return alert(`${findName.name} is already in contacts.`);
     }
 
-    setContacts([...contacts, newContact]);
+    setContacts(prevState => [...prevState, newContact]);
   };
 
   const deleteContact = contactId => {

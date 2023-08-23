@@ -2,26 +2,23 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
+import * as yup from 'yup';
+
 import {
-  ContactFormContainer,
+  StyledFormik,
   Label,
   Input,
   Button,
   Title,
+  StyledForm,
 } from './ContactForm.styled';
-
-const titleMessages = {
-  name: "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
-  phone:
-    'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-};
 
 const ContactForm = ({ onAdd }) => {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
 
-  const numberId = nanoid();
-  const nameId = nanoid();
+  // const numberId = nanoid();
+  // const nameId = nanoid();
 
   const handleNameInput = e => {
     setContactName(e.currentTarget.value);
@@ -36,8 +33,6 @@ const ContactForm = ({ onAdd }) => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
-
     const contact = {
       id: nanoid(),
       name: contactName,
@@ -45,49 +40,50 @@ const ContactForm = ({ onAdd }) => {
     };
 
     onAdd(contact);
-
     reset();
   };
 
   return (
-    <ContactFormContainer autoComplete="off" onSubmit={handleSubmit}>
-      <Label htmlFor={nameId}>
-        <Title>Name</Title>
-        <Input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title={titleMessages.name}
-          required
-          value={contactName}
-          id={nameId}
-          onChange={handleNameInput}
-        />
-        <br />
-      </Label>
-      <Label htmlFor={numberId}>
-        <Title>Number</Title>
-        <Input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-          title={titleMessages.phone}
-          required
-          value={contactNumber}
-          id={numberId}
-          onChange={handleNumberInput}
-        />
-      </Label>
-
-      <Button type="submit">Add contact</Button>
-    </ContactFormContainer>
+    <StyledFormik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      onSubmit={handleSubmit}
+    >
+      <StyledForm autoComplete="off">
+        <Label>
+          <Title>Name</Title>
+          <Input
+            type="text"
+            name="name"
+            placeholder="First and last name..."
+            value={contactName}
+            onChange={handleNameInput}
+          />
+        </Label>
+        <Label>
+          <Title>Number</Title>
+          <Input
+            type="tel"
+            name="number"
+            placeholder="Phone numer..."
+            value={contactNumber}
+            onChange={handleNumberInput}
+          />
+        </Label>
+        <Button type="submit">Add contact</Button>
+      </StyledForm>
+    </StyledFormik>
   );
 };
 
 ContactForm.propTypes = {
+  initialValues: PropTypes.shape({
+    name: PropTypes.string,
+    number: PropTypes.number,
+  }),
   id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.number,
 };
 
 export { ContactForm };

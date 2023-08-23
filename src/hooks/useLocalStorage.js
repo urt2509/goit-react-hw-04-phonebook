@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+//TODO: проверка локалсторедж на null
 
 const useLocalStorage = (key, defaultValue) => {
   const [state, setState] = useState(() => {

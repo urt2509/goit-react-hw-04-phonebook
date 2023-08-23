@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import { Formik, Form, Field } from 'formik';
 
-const ContactFormContainer = styled.form`
-  margin-bottom: 5px;
-  margin-left: 40px;
+const StyledFormik = styled(Formik)`
+  margin: 0px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -14,20 +14,21 @@ const Label = styled.label`
   color: #0000ff;
 `;
 
-const Title = styled.h3`
+const Title = styled.p`
+  font-size: 1.15em;
+  font-weight: bold;
   margin-bottom: 5px;
   text-align: start;
   color: #0000ff;
 `;
 
-const Input = styled.input`
+const Input = styled(Field)`
   margin: 0px;
   width: 250px;
-  height: 75px;
+  height: 45px;
   border: solid 3px rgb(96, 149, 255);
   border-radius: 5px;
   box-shadow: rgb(216, 227, 237) 2px 2px 5px 5px;
-  height: 100%;
   background-color: rgb(255, 255, 255);
   color: #0000ff;
 `;
@@ -53,4 +54,13 @@ const Button = styled.button`
   }
 `;
 
-export { ContactFormContainer, Label, Input, Button, Title };
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+`;
+
+export { StyledFormik, Label, Input, Button, Title, StyledForm };
