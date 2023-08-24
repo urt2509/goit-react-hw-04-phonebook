@@ -1,80 +1,55 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-
-import * as yup from 'yup';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import {
-  StyledFormik,
   Label,
-  Input,
+  StyledField,
   Button,
   Title,
   StyledForm,
+  StyledError,
 } from './ContactForm.styled';
 
+const schema = Yup.object().shape({
+  name: Yup.string().min(1, 'Too short!').required('Required'),
+  number: Yup.string()
+    .min(9, 'Must be at least 9 symbols')
+    .required('Required'),
+});
+
 const ContactForm = ({ onAdd }) => {
-  const [contactName, setContactName] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-
-  // const numberId = nanoid();
-  // const nameId = nanoid();
-
-  const handleNameInput = e => {
-    setContactName(e.currentTarget.value);
-  };
-  const handleNumberInput = e => {
-    setContactNumber(e.currentTarget.value);
-  };
-
-  const reset = () => {
-    setContactName('');
-    setContactNumber('');
-  };
-
-  const handleSubmit = e => {
-    const contact = {
-      id: nanoid(),
-      name: contactName,
-      number: contactNumber,
-    };
-
-    onAdd(contact);
-    reset();
-  };
+  // const [contactName, setContactName] = useState('');
+  // const [contactNumber, setContactNumber] = useState('');
 
   return (
-    <StyledFormik
+    <Formik
       initialValues={{
         name: '',
         number: '',
       }}
-      onSubmit={handleSubmit}
+      validationSchema={schema}
+      onSubmit={(values, actions) => {
+        onAdd({ ...values, id: nanoid() });
+        actions.resetForm();
+      }}
     >
       <StyledForm autoComplete="off">
         <Label>
           <Title>Name</Title>
-          <Input
-            type="text"
-            name="name"
-            placeholder="First and last name..."
-            value={contactName}
-            onChange={handleNameInput}
-          />
+          <StyledField name="name" placeholder="First and last name..." />
+          <StyledError name="name" component="div" />
         </Label>
         <Label>
           <Title>Number</Title>
-          <Input
-            type="tel"
-            name="number"
-            placeholder="Phone numer..."
-            value={contactNumber}
-            onChange={handleNumberInput}
-          />
+          <StyledField name="number" placeholder="Phone numer..." />
+          <StyledError name="number" component="div" />
         </Label>
         <Button type="submit">Add contact</Button>
       </StyledForm>
-    </StyledFormik>
+    </Formik>
   );
 };
 

@@ -14,7 +14,6 @@ import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 
 import { Title, SecondTitle, Container } from './App.styled';
-//TODO: change vanila form to Formik and Yup
 
 const App = () => {
   const [contacts, setContacts] = useLocalStorage(
@@ -49,7 +48,6 @@ const App = () => {
 
   const handleFilter = e => {
     setFilter(e.currentTarget.value);
-    console.log(filter);
   };
 
   const filteredContacts = getFilteredContacts();

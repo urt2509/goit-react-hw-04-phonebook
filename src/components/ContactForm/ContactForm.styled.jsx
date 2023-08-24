@@ -1,13 +1,5 @@
 import styled from 'styled-components';
-import { Formik, Form, Field } from 'formik';
-
-const StyledFormik = styled(Formik)`
-  margin: 0px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 5px;
-`;
+import { Form, Field, ErrorMessage } from 'formik';
 
 const Label = styled.label`
   padding: 0px;
@@ -22,10 +14,10 @@ const Title = styled.p`
   color: #0000ff;
 `;
 
-const Input = styled(Field)`
+const StyledField = styled(Field)`
   margin: 0px;
+  margin-right: 10px;
   width: 250px;
-  height: 45px;
   border: solid 3px rgb(96, 149, 255);
   border-radius: 5px;
   box-shadow: rgb(216, 227, 237) 2px 2px 5px 5px;
@@ -56,11 +48,12 @@ const Button = styled.button`
 
 const StyledForm = styled(Form)`
   display: flex;
-  flex-direction: row;
-
-  justify-content: space-around;
-  align-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
 `;
 
-export { StyledFormik, Label, Input, Button, Title, StyledForm };
+const StyledError = styled(ErrorMessage)`
+  color: #0000ff;
+`;
+
+export { Label, StyledField, Button, Title, StyledForm, StyledError };
